@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intake Extractor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="vendor-selection" class="section">
+        <h2>Select Vendor</h2>
+        <button id="gplans-btn">GPlans/FuturHealth</button>
+        <button id="redbox-btn">RedBox</button>
+        <button id="trimrx-btn">TrimRx</button>
+        <!-- Future vendors can be added here -->
+    </div>
+
+    <div id="workflow" class="section hidden">
+        <div id="vendor-header">
+            <span id="vendor-name"></span>
+            <button id="back-to-vendors" class="back-button">Change Vendor</button>
+        </div>
+        
+        <div id="visit-toggle">
+            <button id="initial-visit-btn" class="active">Initial Visit</button>
+            <button id="refill-visit-btn">Refill Visit</button>
+        </div>
+
+        <div id="initial-section">
+            <h3>Initial Visit Intake</h3>
+            <textarea id="intakeData" placeholder="Paste your intake data here"></textarea>
+            <button id="process-initial-btn">Process Initial Visit</button>
+        </div>
+
+        <div id="refill-section" class="hidden">
+            <h3>Refill Visit</h3>
+            <textarea id="refillData" placeholder="Paste your refill data here"></textarea>
+            <button id="process-refill-btn">Process Refill Visit</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="newapp.js"></script>
+</body>
+</html>
