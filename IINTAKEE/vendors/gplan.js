@@ -555,8 +555,9 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
             const pharmacyInfo = extractPharmacyInfo(refillData);
             
             resultDiv.innerHTML = `
-                <p><strong>Current Weight:</strong> ${weight}</p>
                 <h3>GPLANS Refill Visit Processing</h3>
+
+                <p><strong>Current Weight:</strong> ${weight}</p>
 
                 <p><strong>Preferred Medication:</strong><span style="background-color:#FFFF00"><strong> ${formattedMed}</strong></span></p>
 
