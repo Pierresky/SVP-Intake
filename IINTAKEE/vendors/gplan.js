@@ -170,6 +170,11 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
         // Format the result
         const GPresult = `
             <h1>GPlans/FuturHealth Initial Visit Processing</h1>
+
+            ${hasPOBox ? 
+                `<p><span style="background-color:#FFFF00">Providers Note: Need to confirm patient's address as our pharmacies do not ship Rx's to PO Box.</span></p>` 
+                : ''
+            }
             <h3><strong><span style="background-color:#FFFF00">Initial Visit</span></strong></h3>
                 <ul>
                     <li>The patient would like to start on ${highlightedMeds}</li>
@@ -213,12 +218,8 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
                 `Denies drug and alcohol misuse`}
             </p>
 
-             <h3><strong>Shipping Address</strong></h3>
-            <p>
-            ${hasPOBox ? 
-                `<span style="background-color:#FFFF00">${shippingAddress}</span><br><span style="background-color:#FFFF00">Providers Note: Need to confirm patient's address as our pharmacies do not ship Rx's to PO Box.</span>` :
-                `<span style="background-color:#FFFF00">${shippingAddress}</span>`}
-            </p>
+            <h3><strong>Shipping Address</strong></h3>
+            <p><span style="background-color:#FFFF00">${shippingAddress}</span></p>
 
             <h3>Preferred Medication</h3>
             <p>
