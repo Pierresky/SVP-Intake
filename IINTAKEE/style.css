@@ -1,36 +1,63 @@
+/* Reset & Base */
 body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
+    background-color: #f4f7fa;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
+    max-width: 900px;
     text-align: center;
+    color: #333;
 }
 
+/* Utility Classes */
 .hidden {
     display: none;
 }
 
 .section {
+    background: #fff;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Vendor Header */
+.vendor-header {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Card-style Buttons */
+#vendor-selection-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+#vendor-selection-buttons button {
+    width: 200px;
+    height: 140px;
+    background-color: #ffffff;
+    color: #333;
     border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+#vendor-selection-buttons button:hover {
+    transform: translateY(-4px);
+    background-color: #f0f8ff;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
+/* Visit Toggle */
 #visit-toggle {
     display: flex;
     justify-content: center;
@@ -38,40 +65,68 @@ button:hover {
 }
 
 #visit-toggle button {
+    padding: 10px 20px;
     margin: 0 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+#visit-toggle button.active,
+#visit-toggle button:hover {
+    background-color: #00b333;
+}
+
+/* Workflow Textareas & Result */
 textarea {
     width: 100%;
     height: 200px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
 }
 
 #result {
     text-align: left;
     background-color: #ffffff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    font-size: 15px;
+    margin-top: 15px;
 }
 
-.active {
-    background-color: #0056b3;
-}
-
-.vendor-header {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
+/* Back Button */
 .back-button {
     background-color: #6c757d;
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 0.8em;
+    margin-left: 30px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
 }
 
 .back-button:hover {
     background-color: #545b62;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #vendor-selection-buttons {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    #vendor-selection-buttons button {
+        width: 100%;
+    }
 }
