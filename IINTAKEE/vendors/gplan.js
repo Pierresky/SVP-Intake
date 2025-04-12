@@ -2,28 +2,7 @@
 window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataTextarea, refillDataTextarea, resultDiv) {
     console.log("GPLANS vendor script loaded");
     
-    // Set up copy to clipboard function specifically for GPLANS
-    window.copyToClipboard = function(elementId) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            const htmlContent = element.innerHTML;
-            
-            // Create a temporary element to store the HTML
-            const tempElement = document.createElement('div');
-            tempElement.innerHTML = htmlContent;
-            
-            // Use clipboard API to copy as HTML
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const clipboardItem = new ClipboardItem({ 'text/html': blob });
-            
-            navigator.clipboard.write([clipboardItem]).then(() => {
-                alert('Copied Successfully!');
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-    };
-    
+ 
     // Initial visit processing
     processInitialBtn.addEventListener('click', function() {
         const intakeData = intakeDataTextarea.value;
@@ -35,11 +14,11 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
 
         // Extract preferred medication
         let preferredMeds = 'X';
-        const medMatch = intakeData.match(/Medication the patient wants\?\n([A-Z ]+ [a-z]+ [a-z]+) \(.*\)/);
+        const medMatch = intakeData.match(/Medication the patient wants\?\n(.+?)\s*\(.*\)/);
         
         if (medMatch) {
             preferredMeds = medMatch[1]
-                .replace(/ compound| generic| brand/g, '') // Remove unwanted descriptors
+                .replace(/ compound| generic| brand/gi, '') // Remove unwanted descriptors
                 .trim();
         }
 
@@ -54,9 +33,9 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
 
         // Apply highlight only if there’s a value
         const highlightedMeds = preferredMeds === 'X' ? 'X' : `<span style="background-color:#FFFF00">${preferredMeds}</span>`;
-        const highlightedWeight = weight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${weight}</span>`;
+        const highlightedWeight = weight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${weight}.0 lbs</span>`;
         const highlightedBMI = bmi === 'X' ? 'X' : `<span style="background-color:#FFFF00">${bmi}</span>`;
-        const highlightedGoalWeight = goalWeight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${goalWeight}</span>`;
+        const highlightedGoalWeight = goalWeight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${goalWeight} lbs</span>`;
 
          // Extract weight loss medication history
          const currentlyTakingMatch = intakeData.match(/Are you currently taking medication\(s\) for weight loss\?\n(Yes|No)/);
@@ -109,11 +88,7 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
 
         const conditions = /Do any of the following currently or recently apply to you\?\n([\s\S]*?)(?:\nHave you been diagnosed|$)/.exec(intakeData);
 
-        const bariatricSurgery = /Have you had bariatric \(weight loss\) surgery before\?\n(.*?)(?:\n|$)/.exec(intakeData);
-
         const diabetes = /Have you been diagnosed with prediabetes or type 2 diabetes\?\n(.*?)(?:\n|$)/.exec(intakeData);
-
-        const medicationDetails = /If yes, please include name, dose, and frequency of all your medications[\s\S]*?\n([\s\S]*?)(?:\n\n|\n[A-Z]|$)/.exec(intakeData);
 
         // Extract additional medical conditions
         let otherConditions = [];
@@ -197,7 +172,7 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
             <h1>GPlans/FuturHealth Initial Visit Processing</h1>
             <h3><strong><span style="background-color:#FFFF00">Initial Visit</span></strong></h3>
                 <ul>
-                    <li>The patient would like to start on ${highlightedMeds} medication.</li>
+                    <li>The patient would like to start on ${highlightedMeds}</li>
                     <li>${weightLossHistory}</li>
                     <li>Starting weight: ${highlightedWeight}</li>
                     <li>Starting BMI: ${highlightedBMI}</li>
@@ -211,23 +186,6 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
                     <li>Date of last injection:</li>
                     <li>How many injections has the patient taken on the current dose:</li>
                 </ul>
-
-            <h1>GPlans/FuturHealth Initial Visit Ai version</h1>
-            <div id="initialVisitAiSection">
-             <h3><strong><span style="background-color:#FFFF00">Initial Visit</span></strong></h3>          
-                <ul>
-                    <li>The patient would like to start on: ${highlightedMeds}.</li>
-                    <li>${weightLossHistory}</li>
-                    <li>The patient has tried the following medications in the past for weight loss: <span style="background-color:#FFFF00">None.</span></li>
-                    <li>Starting weight: ${highlightedWeight}</li>
-                    <li>Starting BMI: ${highlightedBMI}.</li>
-                    <li>Goal weight: ${highlightedGoalWeight}</li>
-                    <li>Last labs completed:</li>
-                    <li>Local pharmacy:</li>
-                </ul>
-            </div>    
-            <button onclick="copyToClipboard('initialVisitAiSection')">Copy</button>
-
 
             <h1><strong>Vitals</strong></h1>
             <p>Current or average blood pressure range: <span style="background-color:#FFFF00">${bloodPressure}</span></p>
@@ -554,7 +512,7 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
             const providerNote = extractProviderNote(refillData);
             const pharmacyInfo = extractPharmacyInfo(refillData);
             
-            resultDiv.innerHTML = `
+            resultDiv.innerHTML = `               
                 <h3>GPLANS Refill Visit Processing</h3>
 
                 <p><strong>Current Weight:</strong> ${weight}</p>
