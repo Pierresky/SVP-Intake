@@ -33,9 +33,9 @@ window.initVendor = function(processInitialBtn, processRefillBtn, intakeDataText
 
         // Apply highlight only if there’s a value
         const highlightedMeds = preferredMeds === 'X' ? 'X' : `<span style="background-color:#FFFF00">${preferredMeds}</span>`;
-        const highlightedWeight = weight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${weight}.0 lbs</span>`;
+        const highlightedWeight = weight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${weight}.0</span>`;
         const highlightedBMI = bmi === 'X' ? 'X' : `<span style="background-color:#FFFF00">${bmi}</span>`;
-        const highlightedGoalWeight = goalWeight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${goalWeight} lbs</span>`;
+        const highlightedGoalWeight = goalWeight === 'X' ? 'X' : `<span style="background-color:#FFFF00">${goalWeight}</span>`;
 
          // Extract weight loss medication history
          const currentlyTakingMatch = intakeData.match(/Are you currently taking medication\(s\) for weight loss\?\n(Yes|No)/);
